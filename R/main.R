@@ -1,3 +1,9 @@
+#' Get Dataflows for United Nations Data and Its Details
+#' @description This function will return all dataflows (categories) in UNData database, and its several details in a dataframe.
+#' @return
+#' @export
+#' @details The ids column represents dataflows for each variable.
+#' @examples
 data_flow <- function(){
 
   url_1 <- "https://data.un.org/ws/rest/dataflow/"
@@ -21,6 +27,13 @@ data_flow <- function(){
 
 
 
+#' Get the Data Structure of a Selected Dataflow
+#' @description Returns a structure of the selected dataflow.
+#' @return
+#' @export
+#' @details This function will return in a list format which includes all variables (criteria) in selected dataflow. Dataflow ids can be found in data frame that \code{data_flow()} returns.
+#' @param dataflow
+#' @examples data_structure(dataflow = "DF_UNData_UNFCC")
 data_structure <- function(dataflow){
 
   data <- data_flow() |> dplyr::filter(ids == dataflow)
@@ -48,7 +61,7 @@ data_structure <- function(dataflow){
     names_data <- paste0(codelist[i])
     alt_pos <- stringr::str_locate_all(names_data, "_")[[1]]
     alt_pos_first <- alt_pos[1,]
-    str_sub(names_data, alt_pos_first[1],alt_pos_first[2]) <- ","
+    stringr::str_sub(names_data, alt_pos_first[1],alt_pos_first[2]) <- ","
     names_data <- gsub(".*,","", names_data)
 
     names(list_1)[i] <- names_data
@@ -59,6 +72,18 @@ data_structure <- function(dataflow){
 
 
 
+#' Get Dataset for Selected Dataflow and Several Filters
+#' @description This function will return a dataframe according to the chosen \code{dataflow} and informations in \code{filter}.
+#' @return
+#' @export
+#' @param dataflow
+#' @param filter
+#' @param start
+#' @param end
+#' @usage get_data(dataflow, filter, start, end)
+#' @details For the filter variable one has to indicate a list which includes vectors that contains the name of variable (criteria) and selected object in this criteria.
+#' @examples #To fetch the Environment data for Germany for the indicator of Methane (EN_ATM_METH_XLULUCF) between the years of 2010 and 2015:
+#' @examples \code{get_data("DF_UNData_UNFCC", filter = list(c("REF_AREA","DEU"),c("INDICATOR", "EN_ATM_METH_XLULUCF")), start = 2010, end = 2015)}
 get_data <- function(dataflow, filter = NULL, start = NULL , end = NULL){
   data <- data_structure(dataflow)
 
