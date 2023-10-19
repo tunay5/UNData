@@ -46,25 +46,23 @@ data_structure <- function(dataflow){
 
   page <- xml2::read_xml(url)
 
-  codelist <- xml2::xml_attr(xml2::xml_find_all(page, "//structure:Codelist"),"id")
+  codelist <- xml2::xml_attr(xml2::xml_find_all(page, "//structure:DataStructures"),"id")
 
+  object_ids <- xml2::xml_attr(xml2::xml_find_all(page, "//structure:DimensionList/structure:Dimension/structure:LocalRepresentation/structure:Enumeration/Ref"),"id")
+
+  object_names <- xml2::xml_attr(xml2::xml_find_all(page, "//structure:DimensionList/structure:Dimension"),"id")
 
   list_1 <- list()
 
-  for(i in 1:length(codelist)){
-    name <- codelist[i]
+  for(i in 1:length(object_names)){
+    name <- object_ids[i]
     as <- paste0(paste("//*[@id = '", name, "'", sep = ""),"]")
     data <- data.frame(title = xml2::xml_text(xml2::xml_children(xml2::xml_find_all(page,as))),
                               id = xml2::xml_attr(xml2::xml_children(xml2::xml_find_all(page, as)),"id"))
     data <- data |> tidyr::drop_na()
     list_1[[i]] <- data
-    names_data <- paste0(codelist[i])
-    alt_pos <- stringr::str_locate_all(names_data, "_")[[1]]
-    alt_pos_first <- alt_pos[1,]
-    stringr::str_sub(names_data, alt_pos_first[1],alt_pos_first[2]) <- ","
-    names_data <- gsub(".*,","", names_data)
 
-    names(list_1)[i] <- names_data
+    names(list_1)[i] <- object_names[i]
   }
   assign(paste0("list_", dataflow), list_1, env = .GlobalEnv)
   list_1

@@ -1,0 +1,53 @@
+---
+output: github_document
+---
+
+# Install Package 
+First, you have to install devtools package and adding to your library
+
+```{r eval = FALSE}
+install.packages("devtools")
+library(devtools)
+```
+
+And then you can download UN package by tools that devtools provides
+
+```{r eval = FALSE}
+install_github("tunay5/UNData")
+library(UN)
+```
+
+## data_flow()
+data_flow() function will return a dataframe which includes dataflows in UN database, the names of each dataflow and other (unimportant for your usage) details of each dataflow.
+
+```{r eval = TRUE, include = FALSE}
+install.packages("devtools", repos ="http://cran.us.r-project.org")
+library(devtools)
+install_github("tunay5/UNData")
+library(UN)
+```
+ 
+ 
+```{r eval = FALSE}
+data_flow()
+```
+
+```{r echo = FALSE}
+data <- data_flow()
+
+data <- data[,1:2]
+
+data
+```
+
+## data_structure()
+After selecting which dataflow you want to fetch data from, if you want to see the data structure, the informations on the data of selected dataflow, you should use \code {data_structure()} function. It will also assign the list of selected dataflow into your global environment.
+
+```{r eval = FALSE}
+data_structure(dataflow = "DF_UNData_UNFCC")
+```
+
+```{r}
+
+```
+
