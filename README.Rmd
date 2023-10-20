@@ -43,11 +43,47 @@ data
 ## data_structure()
 After selecting which dataflow you want to fetch data from, if you want to see the data structure, the informations on the data of selected dataflow, you should use \code {data_structure()} function. It will also assign the list of selected dataflow into your global environment.
 
+Since this function returns a list of variables for the selected dataflow, to get the dataframe for a variable (COMMODITY variable for DF_UNDATA_ENERGY dataflow) use:
+
 ```{r eval = FALSE}
-data_structure(dataflow = "DF_UNData_UNFCC")
+data_structure(dataflow = "DF_UNDATA_ENERGY")
+
+list_DF_UNDATA_ENERGY$COMMODITY
 ```
 
-```{r}
+```{r echo = FALSE}
+data <- UN::data_structure("DF_UNDATA_ENERGY")
+
+data_1 <- data$COMMODITY
+
+data_1[1:10,]
+```
+
+## get_data()
+
+With information that you accumulated from \code {data_structure()} function, you are able to fetch data based on these information.
+
+Let's say you want to fetch the Environment data (DF_UNData_UNFCC dataflow) for Germany for the indicator of Methane (EN_ATM_METH_XLULUCF) between the years of 2010 and 2015:
+
+```{r eval = FALSE}
+get_data("DF_UNData_UNFCC", filter = list(c("REF_AREA","DEU"),c("INDICATOR", "EN_ATM_METH_XLULUCF")), start = 2010, end = 2015)
 
 ```
 
+```{r eval = TRUE, include = FALSE}
+
+data <- get_data("DF_UNData_UNFCC", filter = list(c("REF_AREA","DEU"),c("INDICATOR", "EN_ATM_METH_XLULUCF")), start = 2010, end = 2015)
+
+```
+
+```{r echo = FALSE}
+data
+```
+
+## Notes
+
+To learn more and understand the basics of how sdmx api of UNSD works, check out:
+
+https://unstats.un.org/sdgs/files/SDMX_SDG_API_MANUAL.pdf
+
+https://data.un.org/Host.aspx?Content=API
