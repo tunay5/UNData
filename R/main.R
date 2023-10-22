@@ -2,7 +2,7 @@
 #' @description This function will return all dataflows (categories) in UNData database, and its several details in a dataframe.
 #' @return
 #' @export
-#' @details The ids column represents dataflows for each variable.
+#' @details The data.flow column represents dataflows for each variable.
 #' @examples
 data_flow <- function(){
 
@@ -10,7 +10,7 @@ data_flow <- function(){
 
   page_1<- xml2::read_xml(url_1)
 
-  ids <- xml2::xml_attr(xml2::xml_find_all(page_1, "//structure:Dataflow"),"id")
+  data.flow <- xml2::xml_attr(xml2::xml_find_all(page_1, "//structure:Dataflow"),"id")
 
   titles <- xml2::xml_text(xml2::xml_find_all(page_1, "//*[@xml:lang='en']"))
 
@@ -20,7 +20,7 @@ data_flow <- function(){
 
   titles <- titles[-10]
 
-  dataflow <- data.frame(titles, ids, ref_ids, agency_ids)
+  dataflow <- data.frame(titles, data.flow, ref_ids, agency_ids)
 
   dataflow
 }
@@ -36,7 +36,7 @@ data_flow <- function(){
 #' @examples data_structure(dataflow = "DF_UNData_UNFCC")
 data_structure <- function(dataflow){
 
-  data <- data_flow() |> dplyr::filter(ids == dataflow)
+  data <- data_flow() |> dplyr::filter(data.flow == dataflow)
 
   ref_id <- data[1,3]
 

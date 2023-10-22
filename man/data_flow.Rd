@@ -10,5 +10,5 @@ data_flow()
 This function will return all dataflows (categories) in UNData database, and its several details in a dataframe.
 }
 \details{
-The ids column represents dataflows for each variable.
+The data.flow column represents dataflows for each variable.
 }
