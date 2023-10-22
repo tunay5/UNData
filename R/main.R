@@ -46,8 +46,6 @@ data_structure <- function(dataflow){
 
   page <- xml2::read_xml(url)
 
-  codelist <- xml2::xml_attr(xml2::xml_find_all(page, "//structure:DataStructures"),"id")
-
   object_ids <- xml2::xml_attr(xml2::xml_find_all(page, "//structure:DimensionList/structure:Dimension/structure:LocalRepresentation/structure:Enumeration/Ref"),"id")
 
   object_names <- xml2::xml_attr(xml2::xml_find_all(page, "//structure:DimensionList/structure:Dimension"),"id")

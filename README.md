@@ -98,11 +98,13 @@ get_data("DF_UNData_UNFCC", filter = list(c("REF_AREA","DEU"),c("INDICATOR", "EN
 
 To reach the database (UNData):
 
-<https://data.un.org/Host.aspx?Content=API>
+<https://data.un.org/SdmxBrowser/start>
 
 To learn more and understand the basics of how sdmx api of UNSD works,
 check out:
 
 <https://unstats.un.org/sdgs/files/SDMX_SDG_API_MANUAL.pdf>
 
-<https://data.un.org/SdmxBrowser/start>
+<https://data.un.org/Host.aspx?Content=API>
+
+
