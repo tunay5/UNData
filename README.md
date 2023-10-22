@@ -25,7 +25,7 @@ usage) details of each dataflow.
 data_flow()
 ```
 
-    ##                               titles                     ids
+    ##                               titles               data.flow
     ## 1          Annual financial accounts         NASEC_IDCFINA_A
     ## 2       Quarterly financial accounts         NASEC_IDCFINA_Q
     ## 3      Annual non-financial accounts         NASEC_IDCNFSA_A
