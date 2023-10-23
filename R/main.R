@@ -109,11 +109,14 @@ get_data <- function(dataflow, filter = NULL, start = NULL , end = NULL){
     }
   }
 
-  get_final_data <- rsdmx::readSDMX(providerId = "UNSD", resource = "data", flowRef = as.character(dataflow),
-                                    key = list_1, start = start, end = end)
+  tryCatch(data.frame(rsdmx::readSDMX(providerId = "UNSD", resource = "data", flowRef = as.character(dataflow),
+                                    key = list_1, start = start, end = end)),
+           error = function(e){
+             message("The Filtered Data Cannot be Found, Try Another Filter")
+           }
+  )
 
-  get_final_dataset <- data.frame(get_final_data)
-  get_final_dataset
+
 
 
   }
